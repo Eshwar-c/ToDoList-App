@@ -1,8 +1,11 @@
 import React,{useState} from 'react'
 function ToDoForm() {
   const[items,setItems]=useState([])
+  const inputRef=React.useRef(null)
   const[inputText,updatedInputText]=useState('')
   const clickHandler = () =>{
+    inputRef.current.value=""
+    inputRef.current.focus()
    setItems([...items,{id:crypto.randomUUID,title:inputText,completed:true}])
    }
    const onSub=e=>{
@@ -19,7 +22,7 @@ function ToDoForm() {
     <><form onSubmit={onSub}>
       <h1>To Do List</h1>
       <div className='layout'>
-        <input className='input' type='text' placeholder='enter next task ' onChange={(e) => updatedInputText(e.target.value)}></input>
+        <input className='input'  ref={inputRef} type='text' placeholder='enter next task ' onChange={(e) => updatedInputText(e.target.value)}></input>
         <button className='btn' onClick={clickHandler}>Add</button>
       </div>
     </form><h1>todolist</h1><ul>
